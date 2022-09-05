@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>setTimeout</title>
+    <style>
+      body {
+        background-image: url("https://picsum.photos/id/30/1920/1080");
+        user-select: none;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      button {
+        width: 100px;
+        margin-bottom: 20px;
+        border-radius: 30px;
+        background-color: aliceblue;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      section {
+        border-radius: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <button id="button">button</button>
+      <section id="target"></section>
+    </div>
+    <script>
+      const targetSection = document.getElementById("target");
+      const button = document.getElementById("button");
+      let size = 0;
+      let rotateValue = 0;
+      targetSection.style.width = size + "px";
+      targetSection.style.height = size + "px";
+
+      button.addEventListener("click", function () {
+        button.style.pointerEvents = "none";
+        let timer = setInterval(function () {
+          size = size + 1;
+
+          targetSection.style.width = "100px";
+          targetSection.style.height = size + "px";
+          targetSection.style.backgroundColor = `rgba(${size},${size},${size})`;
+
+          if (size === 360) {
+            clearInterval(timer);
+            let rotate = setInterval(function () {
+              rotateValue += 1;
+              targetSection.style.transform = `rotate(${rotateValue}deg)`;
+
+              if (rotateValue === 360) {
+                clearInterval(rotate);
+                let reverse = setInterval(() => {
+                  size = size - 1;
+                  targetSection.style.height = size + "px";
+                  rotateValue -= 1;
+                  targetSection.style.transform = `rotate(${rotateValue}deg)`;
+                  targetSection.style.backgroundColor = `rgba(${size},${size},${size})`;
+                  if (rotateValue === 0) {
+                    clearInterval(reverse);
+                    button.style.pointerEvents = "unset";
+                  }
+                });
+              }
+            });
+          }
+        });
+      });
+
+      // targetSection.style.backgroundColor = "#ffcc88";
+    </script>
+  </body>
+</html>
