@@ -53,25 +53,29 @@
 
           if (size === 360) {
             clearInterval(timer);
-            let rotate = setInterval(function () {
-              rotateValue += 1;
-              targetSection.style.transform = `rotate(${rotateValue}deg)`;
+            setTimeout(() => {
+              let rotate = setInterval(function () {
+                rotateValue += 1;
+                targetSection.style.transform = `rotate(${rotateValue}deg)`;
 
-              if (rotateValue === 360) {
-                clearInterval(rotate);
-                let reverse = setInterval(() => {
-                  size = size - 1;
-                  targetSection.style.height = size + "px";
-                  rotateValue -= 1;
-                  targetSection.style.transform = `rotate(${rotateValue}deg)`;
-                  targetSection.style.backgroundColor = `rgba(${size},${size},${size})`;
-                  if (rotateValue === 0) {
-                    clearInterval(reverse);
-                    button.style.pointerEvents = "unset";
-                  }
-                });
-              }
-            });
+                if (rotateValue === 360) {
+                  clearInterval(rotate);
+                  setTimeout(() => {
+                    let reverse = setInterval(() => {
+                      size = size - 1;
+                      targetSection.style.height = size + "px";
+                      rotateValue -= 1;
+                      targetSection.style.transform = `rotate(${rotateValue}deg)`;
+                      targetSection.style.backgroundColor = `rgba(${size},${size},${size})`;
+                      if (rotateValue === 0) {
+                        clearInterval(reverse);
+                        button.style.pointerEvents = "unset";
+                      }
+                    });
+                  }, 1000);
+                }
+              });
+            }, 1000);
           }
         });
       });

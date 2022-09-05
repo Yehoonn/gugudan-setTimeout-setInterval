@@ -1,7 +1,9 @@
 import createElement from "./createElement.js";
+import event from "./event.js";
 import gugudan from "./gugudan.js";
 
 createElement(gugudan(2, 9));
+event();
 
 // 절댓값은 Math.abs(arg) ex) -5 => 5
 
